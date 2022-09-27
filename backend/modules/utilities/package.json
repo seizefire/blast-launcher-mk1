@@ -1,0 +1,12 @@
+{
+  "name": "utilities",
+  "version": "1.0.0",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "license": "ISC",
+  "dependencies": {
+    "adm-zip": "^0.5.1",
+    "axios": "^0.21.0",
+		"tar-stream": "^2.2.0"
+  }
+}

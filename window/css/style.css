@@ -1,0 +1,348 @@
+@import "./Inter.css";
+@import "./components.css";
+
+body {
+	background-color: var(--background-color);
+	border: 1px solid var(--window-border-color);
+	box-sizing: border-box;
+	font-family: Inter;
+	font-size: 12px;
+	height: 100vh;
+	margin: 0px;
+	overflow: hidden;
+	width: 100vw;
+}
+body[theme="dark"] {
+	--accent-color: #0e0;
+	--background-color: #000;
+	--middleground-color: #404040;
+	--foreground-color: #fff;
+	--navbar-color: #202020;
+	--titlebar-color: #202020;
+	--window-border-color: #333;
+}
+body div#overlay * {
+	color: var(--foreground-color);
+}
+body div#app * {
+	color: var(--foreground-color) !important;
+}
+button:focus {
+	box-shadow: none;
+	outline: none;
+}
+/**
+ - Windows 10 Titlebar
+ - Credit: https://github.com/binaryfunt/electron-seamless-titlebar-tutorial
+ */
+header#windows-titlebar {
+	background-color: var(--titlebar-color);
+	display: block;
+	height: 32px;
+	position: absolute;
+	width: calc(100% - 2px);
+	-webkit-app-region: drag;
+}
+header#windows-titlebar div#buttons {
+	display: grid;
+	grid-template-columns: repeat(3, 46px);
+	height: 32px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	-webkit-app-region: no-drag;
+}
+header#windows-titlebar div#buttons>div {
+	align-items: center;
+	display: flex;
+	grid-row: 1 / span 1;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	user-select: none;
+}
+header#windows-titlebar div#buttons>div:hover {
+	background: rgba(255,255,255,0.1);
+}
+header#windows-titlebar div#buttons>div:active {
+	background: rgba(255,255,255,0.2);
+}
+header#windows-titlebar #close-button:hover {
+	background: #E81123 !important;
+}
+header#windows-titlebar #close-button:active {
+	background: #F1707A !important;
+}
+header#windows-titlebar #close-button:active img {
+	filter: invert(1);
+}
+body:not([maximized]) header#windows-titlebar #max-button,
+body[maximized] header#windows-titlebar #restore-button {
+	display: flex !important;
+}
+body[maximized] header#windows-titlebar #max-button,
+body:not([maximized]) header#windows-titlebar #restore-button {
+	display: none !important;
+}
+header#windows-titlebar #min-button {
+	grid-column: 1;
+}
+header#windows-titlebar #max-button, header#windows-titlebar #restore-button {
+	grid-column: 2;
+}
+header#windows-titlebar #close-button {
+	grid-column: 3;
+}
+@media (-webkit-device-pixel-ratio: 1.5), (device-pixel-ratio: 1.5), (-webkit-device-pixel-ratio: 2), (device-pixel-ratio: 2), (-webkit-device-pixel-ratio: 3), (device-pixel-ratio: 3) {
+	#window-controls .icon {
+		width: 10px;
+		height: 10px;
+	}
+}
+/**
+ - Navbar
+ */
+div#navbar {
+	background-color: var(--navbar-color);
+	height: 48px;
+	margin-top: 32px;
+	position: absolute;
+	width: calc(100% - 2px);
+}
+div#navbar>button {
+	background-color: transparent;
+	border: none;
+	box-sizing: border-box;
+	color: var(--foreground-color);
+	font-family: Inter;
+	font-size: 16px;
+	font-weight: 400;
+	height: 100%;
+	margin-right: 16px;
+	padding: 0px;
+	transition: color 0.2s ease;
+	user-select: none;
+}
+div#navbar>button:hover:not(.active) {
+	color: var(--accent-color);
+	cursor: pointer;
+}
+div#navbar>button:first-of-type {
+	margin-left: 96px;
+}
+div#navbar>svg {
+	display: inline-block;
+	height: 48px;
+	image-rendering: pixelated;
+	margin-left: 16px;
+	padding: 12px;
+	position: absolute;
+	width: 64px;
+}
+div#navbar>svg path:nth-of-type(2) {
+	fill: var(--navbar-color);
+	transition: fill 1s ease;
+}
+div#navbar>svg:hover:not(.cooldown) {
+	animation: shake 0.5s;
+	animation-iteration-count: infinite;
+	cursor: pointer;
+}
+div#navbar>svg:hover:not(.cooldown) path:nth-of-type(2) {
+	fill: var(--accent-color);
+}
+div#navbar>div#current-bar {
+	background-color: var(--accent-color);
+	display: inline-block;
+	height: 3px;
+	margin-top: 45px;
+	position: absolute;
+	transition: all 0.25s ease;
+}
+@keyframes shake {
+	0% { transform: translate(1px, 1px); }
+	10% { transform: translate(-1px, -1px); }
+	20% { transform: translate(-1px, 0px); }
+	30% { transform: translate(1px, 1px); }
+	40% { transform: translate(1px, -1px); }
+	50% { transform: translate(-1px, 1px); }
+	60% { transform: translate(-1px, 1px); }
+	70% { transform: translate(1px, 1px); }
+	80% { transform: translate(-1px, -1px); }
+	90% { transform: translate(1px, 1px); }
+	100% { transform: translate(1px, -1px); }
+}
+/**
+ - App
+ */
+div#app>div {
+	display: none;
+	height: calc(100vh - 82px);
+	margin-top: 80px;
+	overflow-y: auto;
+	width: 100%;
+}
+div#app>#home, div#app>#settings {
+	padding: 25px;
+}
+div#app>#home>#instance-settings {
+	display: none;
+}
+div#app>#home>#instance-settings table input, div#app>#home>#instance-settings table span {
+	font-family: Inter !important;
+}
+div#app>#home>#instance-settings table button {
+	font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif !important;
+}
+div#app>#home>#instance-settings>table tr td {
+	padding-top: 16px;
+}
+div#app>#home>#instance-settings>table tr td:first-of-type {
+	font-size: 16px;
+	font-weight: bolder;
+	letter-spacing: 1px;
+	padding-right: 16px;
+}
+div#app>#home>#instance-settings>table tr:nth-of-type(4) td:nth-of-type(2) {
+	padding-top: 10px;
+}
+input#edit-instance-name {
+	width: 300px;
+}
+div#app>#home>#instance-settings>table button {
+	border: none;
+	border-radius: 2px;
+	box-sizing: border-box;
+	font-size: 16px;
+	height: 32px;
+	padding: 5px;
+}
+div#app>#home>#instance-settings>table button:hover {
+	cursor: pointer;
+}
+button#edit-instance-save {
+	background-color: #090;
+	width: 180px;
+}
+button#edit-instance-delete {
+	background-color: #900;
+	width: 180px;
+}
+button#open-folder {
+	background-color: #444;
+	width: 150px;
+}
+button#edit-back-button {
+	background-color: #444;
+}
+/**
+ - Overlay
+ */
+div#overlay {
+	background-color: rgba(0,0,0,0.5);
+	display: none;
+	height: calc(100% - 34px);
+	margin-top: 32px;
+	position: absolute;
+	width: calc(100% - 2px);
+	z-index: 10000;
+}
+div#overlay>div {
+	background-color: var(--navbar-color);
+	box-sizing: border-box;
+	display: none;
+	position: absolute;
+}
+div#overlay div#alert-window {
+	margin-left: calc(50vw - 251px);
+	margin-top: calc(50vh - 81px);
+	width: 500px;
+	height: 128px;
+}
+div#overlay div#create-instance-window {
+	margin-left: calc(50vw - 201px);
+	margin-top: calc(50vh - 97px);
+	width: 400px;
+	height: 160px;
+}
+div#overlay div#mojang-login-window {
+	margin-left: calc(50vw - 251px);
+	margin-top: calc(50vh - 157px);
+	width: 500px;
+	height: 280px;
+}
+div#alert-window span#task {
+	display: inline-block;
+	font-size: 32px;
+	margin-top: 48px;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+}
+div#create-new-instance-box {
+	background-color: #111;
+	border: 2px dashed var(--middleground-color);
+	box-sizing: border-box;
+}
+div#create-new-instance-box:hover {
+	background-color: var(--navbar-color);
+	cursor: pointer;
+}
+div#create-instance-window button {
+	background-color: #094;
+	border: none;
+	border-radius: 2px;
+	box-sizing: border-box;
+	font-family: Inter;
+	font-size: 14px;
+	height: 32px;
+	margin-left: 48px;
+	margin-top: 32px;
+	padding: 5px;
+	position: absolute;
+	width: 304px;
+}
+div#create-instance-window button:nth-of-type(2) {
+	margin-top: 96px;
+}
+div#mojang-login-window>span {
+	display: block;
+    text-align: center;
+    margin-top: 24px;
+    font-size: 32px;
+    letter-spacing: 1px;
+}
+div#mojang-login-window>span:first-of-type {
+	margin-top: 32px;
+	margin-bottom: 32px;
+}
+div#mojang-login-window input:not([type="submit"]) {
+	display: block;
+    font-family: Inter;
+    margin-left: 64px;
+    margin-top: 24px;
+    width: 372px;
+}
+div#mojang-login-window input[type="submit"] {
+	background-color: #094;
+	border: none;
+	border-radius: 4px;
+	box-sizing: border-box;
+	display: block;
+	font-family: Inter;
+	font-size: 14px;
+    margin-left: 64px;
+	margin-top: 24px;
+	padding: 5px;
+	transition: background 0.5s ease;
+    width: 372px;
+}
+div#mojang-login-window input[type="submit"]:hover {
+	background-color: #0b5;
+	cursor: pointer;
+}
+div#mojang-login-window span#mojang-login-error {
+	color: #f44;
+	font-family: Inter;
+	font-size: 14px;
+}

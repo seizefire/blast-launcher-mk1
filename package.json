@@ -1,0 +1,38 @@
+{
+	"name": "blast-launcher",
+	"version": "0.0.1",
+	"description": "Minecraft Launcher",
+	"main": "start.js",
+	"author": "Nagaa Dhaba",
+	"license": "GPL-3.0",
+	"scripts": {
+		"start": "electron .",
+		"dist": "electron-builder"
+	},
+	"dependencies": {
+		"adm-zip": "^0.5.1",
+		"axios": "^0.21.0",
+		"base-64": "^1.0.0",
+		"cheerio": "^1.0.0-rc.5",
+		"java-class-tools": "^1.3.2",
+		"jquery": "^3.5.1",
+		"ps-tree": "^1.2.0",
+		"semver": "^7.3.2",
+		"tar-stream": "^2.2.0",
+		"utilities": "file:backend\\modules\\utilities"
+	},
+	"build": {
+		"appId": "com.seizefire.blast-old",
+		"win": {
+			"target": "nsis",
+			"icon": "icon.ico"
+		}
+	},
+	"keywords": [
+		"minecraft"
+	],
+	"devDependencies": {
+		"electron": "^11.2.2",
+		"electron-builder": "^22.9.1"
+	}
+}
